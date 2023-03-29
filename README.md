@@ -1,6 +1,6 @@
 # NestKit Starter: Jumpstart Your NestJS Projects
 
-NestKit Starter is a boilerplate project template that helps you quickly set up and start building NestJS applications with the power of NestKit. This starter project comes pre-configured with essential NestKit modules, best practices, and a well-structured project layout to accelerate your development process.
+NestKit Starter is a boilerplate project template that helps you quickly set up and start building NestJS applications with the power of [NestKit](https://docs.nestkit.dvs.dev/). This starter project comes pre-configured with essential NestKit [modules](https://docs.nestkit.dvs.dev/modules/), best practices, and a well-structured project layout to accelerate your development process.
 
 ## Features
 

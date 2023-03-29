@@ -1,12 +1,8 @@
 
-import { JwtConfig } from '@/config';
 import { User } from '@/modules/users/user.entity';
 import { UsersService } from '@/modules/users/users.service';
-import { InjectWinstonLoggerFactory, WinstonLoggerFactory } from '@deeepvision/nest-kit';
 import { BaseJwtService } from '@deeepvision/nest-kit/dist/modules/auth-n';
-import { IdService } from '@deeepvision/nest-kit/dist/modules/id';
-import { Inject, Injectable } from '@nestjs/common';
-import { ConfigType } from '@nestjs/config';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { RefreshToken } from '../entities/refresh-token.entity';
