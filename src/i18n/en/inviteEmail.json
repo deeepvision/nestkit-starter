@@ -1,0 +1,13 @@
+{
+  "greeting": "Hi {fullName}!",
+  "assignMessage": "You were invited to <img style=\"display: inline; width: 24px; height: 24px; border-radius: 8px; padding: 0 1px; border: 0; vertical-align: middle;\" src=\"{organizationLogoUrl}\" /> {organizationTitle} organization for <span style=\"font-weight:600\">{roleTitle}</span> role. Here are your login and password:",
+  "assignMessageWithoutOrgLogo": "You were invited to {organizationTitle} organization for <span style=\"font-weight:600\">{roleTitle}</span> role. Here are your login and password:",
+  "assignMessageWithoutOrg": "You were invited to Hope.Cloud for <span style=\"font-weight:600\">{roleTitle}</span> role. Here are your login and password:",
+  "email": "Email",
+  "password": "Temporary password*",
+  "changePassword": "*Please change your password after first login",
+  "login": "Login",
+  "ignoreIt": "If you received this email by mistake, just ignore it.",
+  "welcomeAboard": "Welcome aboard!",
+  "hopeCloudTeam": "Hope Cloud team."
+}

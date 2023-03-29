@@ -1,0 +1,42 @@
+//
+// @pkg 📦 DeepVision TSConfig
+// @version 📍 1.0.0
+// @author 🐳 DeepVision Team <code@deepvision.team>
+//
+// Documentation reference: https://www.typescriptlang.org/tsconfig
+// Typescript versions: https://devblogs.microsoft.com/typescript/
+//
+{
+  "compilerOptions": {
+    // NestJS required configuration
+    "target": "es2021",
+    "module": "commonjs",
+    "strict": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    // Typescript recommended
+    "esModuleInterop": true,
+
+    // Debug info
+    "declaration": true,
+    "sourceMap": true,
+
+    // Files will be emitted into this directory
+    "outDir": "dist",
+
+    // "skipLibCheck": true,
+
+    // Set path alias for src directory
+    // see also resolve aliases section in vue.config.js
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "typeRoots": ["node_modules/@types", "src/@types"]
+  },
+  // Include source files only
+  "include": [
+    "src/**/*.ts",
+  ]
+}

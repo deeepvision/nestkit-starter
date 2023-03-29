@@ -1,0 +1,5 @@
+{
+  "greeting": "Hey {name}! \uD83D\uDC4B",
+  "message": "On the Hope Cloud website, your email address has been changed to \"{email}\". Use it to login.",
+  "login": "Login"
+}

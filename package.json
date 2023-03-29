@@ -1,0 +1,45 @@
+{
+  "name": "@deeepvision/neskit-starter",
+  "version": "0.1.0",
+  "description": "NestKit Starter is a boilerplate project template that helps you quickly set up and start building NestJS applications with the power of NestKit.",
+  "author": {
+    "email": "code@deepvision.team",
+    "name": "DeepVision Code"
+  },
+  "private": true,
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=18 <19"
+  },
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "nest build",
+    "docker:up": "docker-compose -p nestkit-starter-db -f dev/docker-compose.yml pull && docker-compose -p nestkit-starter-db -f dev/docker-compose.yml up -d",
+    "docker:stop": "docker-compose -p nestkit-starter-db -f dev/docker-compose.yml stop",
+    "start": "cross-env PORT=3080 nest start",
+    "start:dev": "cross-env PORT=3080 APP_ENV=local nest start --watch",
+    "start:prod": "node dist/main",
+    "start:debug": "cross-env PORT=3080 nest start --debug --watch",
+    "restart:dev": "npm run prebuild && npm run start:dev",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "migration:show": "npm run typeorm -- migration:show -d src/datasource.ts",
+    "migration:run": "npm run typeorm -- migration:run -d src/datasource.ts",
+    "migration:revert": "npm run typeorm -- migration:revert -d src/datasource.ts",
+    "migration:create": "npm run typeorm -- migration:create src/migrations/CreateMigration || exit 0",
+    "migration:generate": "npm run typeorm -- migration:generate -d src/datasource.ts src/migrations/BinaryFiles || exit 0",
+    "lint": "eslint \"src/**/*.ts\"",
+    "lint:fix": "eslint \"src/**/*.ts\" --fix"
+  },
+  "dependencies": {
+    "@deeepvision/nest-kit": "^1.17.0-alpha.2",
+    "got": "^11.8.6"
+  },
+  "devDependencies": {
+    "@deepvision/eslint-plugin": "^1.1.17",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.32.0",
+    "ts-morph": "^17.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5"
+  }
+}
