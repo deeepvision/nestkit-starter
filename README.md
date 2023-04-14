@@ -13,10 +13,4 @@ Pre-configured NestKit modules for common tasks such as authentication, database
 
 ## Getting Started
 
-To start using the NestKit Starter project, simply follow these steps:
-
-1. Clone the NestKit Starter repository or download the source code to your local machine
-2. Navigate to the project directory and install dependencies using your preferred package manager (npm or yarn)
-3. Launch the local database by running `npm run docker:up` in your terminal
-4. Set up and customize the necessary modules in the `src/config` directory according to your application requirements
-5. Start the NestJS application in development mode with `npm run start:dev` and begin building your project
+To start using the NestKit Starter project, simply follow [these steps](https://docs.nestkit.dvs.dev/guide/getting-started.html).
