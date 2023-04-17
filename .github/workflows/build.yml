@@ -1,0 +1,28 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches:
+     - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+        name: Checkout
+      - uses: docker://ghcr.io/deeepvision/github-action-docker-build:1.3
+        name: Build Docker Image
+        with:
+          region: us
+          project: deepops
+          repo: dv
+          name: nestkit-starter
+          jsonKey: ${{ secrets.GCP_JSON_KEY }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GHUB_TOKEN_FULL }}
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: docker://ghcr.io/deeepvision/github-action-deploy:1.2
+        name: Deploy
