@@ -9,17 +9,11 @@ import { ImageRendition } from './image-rendition.entity';
 export class ImageRenditionsService extends BaseImageRenditionsService<ImageRendition> {
   constructor(
     @InjectRepository(ImageRendition) protected readonly imageRenditionRepository: Repository<ImageRendition>,
-    @InjectWinstonLoggerFactory() protected readonly loggerFactory: WinstonLoggerFactory,
     protected readonly gcsService: GcsService,
-    protected readonly idService: IdService,
   ) {
     super(
       imageRenditionRepository,
-      loggerFactory.create({
-        scope: ImageRenditionsService.name,
-      }),
       gcsService,
-      idService,
     );
   }
 }

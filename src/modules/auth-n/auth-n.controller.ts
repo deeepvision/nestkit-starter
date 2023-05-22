@@ -37,7 +37,7 @@ export class AuthNController {
       throw new BadRequestException('"refreshToken" is required!');
     }
 
-    return this.jwtService.refreshTokens(refreshToken, ctx);
+    return await this.jwtService.refreshTokens(refreshToken, ctx);
   }
 
   @Get('/:user_id/pixel')
