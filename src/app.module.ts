@@ -11,7 +11,6 @@ import {
 } from '@deeepvision/nest-kit';
 import { GcsModule } from '@deeepvision/nest-kit/dist/modules/gcs';
 import { IdModule } from '@deeepvision/nest-kit/dist/modules/id';
-import { BiblesModule } from '@deeepvision/nest-kit/dist/modules/bibles';
 import {
   I18nModule, I18nJsonLoader, HeaderResolver, I18nService,
 } from 'nestjs-i18n';
@@ -38,6 +37,8 @@ import { LanguagesModule } from './modules/languages/languages.module';
 import { CountriesModule } from './modules/countries/countries.module';
 import { ServiceAccountsModule } from './modules/service-accounts/service-accounts.module';
 import { BooksModule } from './modules/books/books.module';
+import { BiblesModule } from '@deeepvision/nest-kit/dist/modules/bibles';
+import { CompanionModule } from '@deeepvision/nest-kit/dist/modules/companion';
 
 @Module({
   imports: [
@@ -142,6 +143,7 @@ import { BooksModule } from './modules/books/books.module';
     ServiceAccountsModule,
     BooksModule,
     BiblesModule,
+    CompanionModule,
   ],
   providers: [],
 })

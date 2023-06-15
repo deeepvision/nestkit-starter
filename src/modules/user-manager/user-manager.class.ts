@@ -5,7 +5,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../users/user.entity';
-import { commonAuthorizedUsersPermissions, commonUsersPermissions } from '@/permissions/registry';
+import { commonAuthorizedUsersPermissions, commonUsersPermissions } from '@/permissions';
 import { UserToRole } from '../user-to-roles/user-to-role.entity';
 
 @Injectable()

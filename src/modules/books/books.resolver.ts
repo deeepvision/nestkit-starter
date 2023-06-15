@@ -5,8 +5,7 @@ import { UseGuards } from '@nestjs/common';
 import {
   ActionContext, GraphQLJwtAuthGuard, GraphQLPermissionsGuard, createOffsetPaginationOptions, offsetPaginatedOutput,
 } from '@deeepvision/nest-kit';
-import { IActionContext } from '@/decorators';
-import { UsePermission } from '@/permissions/permissions.decorators';
+import { IActionContext, UsePermission } from '@/decorators';
 import {
   CreateBookInput, UpdateBookInput, DeleteBookInput, FetchBooksInput, DeleteBookPayload, PaginatedBooks,
 } from './types/resolver';
