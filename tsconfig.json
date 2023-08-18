@@ -22,6 +22,8 @@
     "declaration": true,
     "sourceMap": true,
 
+    "skipLibCheck": true,
+
     // Files will be emitted into this directory
     "outDir": "dist",
 

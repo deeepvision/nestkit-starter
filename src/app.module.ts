@@ -1,5 +1,5 @@
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { CacheModule, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigType } from '@nestjs/config';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { GraphQLModule } from '@nestjs/graphql';
@@ -39,6 +39,7 @@ import { ServiceAccountsModule } from './modules/service-accounts/service-accoun
 import { BooksModule } from './modules/books/books.module';
 import { BiblesModule } from '@deeepvision/nest-kit/dist/modules/bibles';
 import { CompanionModule } from '@deeepvision/nest-kit/dist/modules/companion';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
   imports: [
