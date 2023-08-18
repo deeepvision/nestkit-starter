@@ -37,6 +37,7 @@ export const DbConfig = createDbConfig({
     'node_modules/@deeepvision/nest-kit/dist/modules/users/**/*.entity.js',
     'node_modules/@deeepvision/nest-kit/dist/modules/binary-files/**/*.entity.js',
     'node_modules/@deeepvision/nest-kit/dist/modules/bibles/**/*.entity.js',
+    'node_modules/@deeepvision/nest-kit/dist/modules/service-accounts/**/*.entity.js',
   ],
 });
 
@@ -44,7 +45,11 @@ export const MailerConfig = createMailerConfig();
 
 export const WinstonConfig = createWinstonConfig({
   appName: 'Nestkit Starter',
-  googleLogName: 'nestkit_starter',
+  useConsole: process.env.APP_ENV === AppEnv.LOCAL,
+  useGoogleCloudLogging: process.env.APP_ENV !== AppEnv.LOCAL,
+  googleCloudLoggingOptions: {
+    logName: 'nestkit_starter',
+  },
 });
 
 export const GcpConfig = createGcpConfig();

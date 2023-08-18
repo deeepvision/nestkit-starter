@@ -1,5 +1,5 @@
 import {
-  Args, Mutation, Query, Resolver,
+  Args, Info, Mutation, Query, Resolver,
 } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import {
@@ -11,6 +11,7 @@ import {
 } from './types/resolver';
 import { BooksService } from './books.service';
 import { Book } from './book.entity';
+import { GraphQLResolveInfo } from 'graphql';
 
 @Resolver(() => Book)
 @UseGuards(GraphQLJwtAuthGuard, GraphQLPermissionsGuard)
@@ -31,13 +32,14 @@ export class BooksResolver {
   @UsePermission('nst:core:books:list')
   async books(
     @Args() input: FetchBooksInput,
+    @Info() info: GraphQLResolveInfo,
   ): Promise<PaginatedBooks> {
     const [books, meta] = await this.booksService.getMany(
       {
         filter: input.filter ?? {
         },
         orderBy: input.orderBy,
-        ...createOffsetPaginationOptions(input),
+        ...createOffsetPaginationOptions(input, info),
       },
     );
 

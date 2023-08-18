@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 
 import { AppModule } from '@/app.module';
 import {
-  AppEnv, HttpExceptionFilter, WinstonLoggerFactory, WINSTON_MODULE_FACTORY_PROVIDER,
+  NESTKIT_WINSTON_LOGGER_FACTORY_PROVIDER, AppEnv, HttpExceptionFilter, NESTKIT_WINSTON_SYSTEM_LOGGER_PROVIDER,
 } from '@deeepvision/nest-kit';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import hbs from 'hbs';
@@ -14,6 +14,7 @@ hbs.registerPartials(resolve(__dirname, '../src/resources/emails/partials/'));
 
 const bootstrap = async () => {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  app.useLogger(app.get(NESTKIT_WINSTON_SYSTEM_LOGGER_PROVIDER));
   app.enableCors();
 
   app.use(bodyParser.json({
@@ -29,10 +30,10 @@ const bootstrap = async () => {
   app.setViewEngine('hbs');
 
   const { httpAdapter } = app.get(HttpAdapterHost);
-  const loggerFactory = app.get(WINSTON_MODULE_FACTORY_PROVIDER);
+  const loggerFactory = app.get(NESTKIT_WINSTON_LOGGER_FACTORY_PROVIDER);
   app.useGlobalFilters(new HttpExceptionFilter(httpAdapter, loggerFactory));
 
-  const logger = app.get<WinstonLoggerFactory>(WINSTON_MODULE_FACTORY_PROVIDER).create({
+  const logger = loggerFactory.create({
     scope: 'Main',
   });
 
