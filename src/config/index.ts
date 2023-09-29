@@ -1,5 +1,5 @@
 import { AppEnv } from '@deeepvision/nest-kit';
-import { config as useDotEnv } from '@deeepvision/dotenv-yaml';
+import { useDotEnv } from '@deeepvision/dotenv-yaml';
 
 import {
   createAppConfig,

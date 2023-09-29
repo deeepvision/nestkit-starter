@@ -1,5 +1,5 @@
 // eslint-disable-next-line node/no-unpublished-import
-import { config as useDotEnv } from '@deeepvision/dotenv-yaml';
+import { useDotEnv } from '@deeepvision/dotenv-yaml';
 import { DataSource } from 'typeorm';
 
 useDotEnv();
