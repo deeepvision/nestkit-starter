@@ -7,7 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import {
-  WinstonModule, createGraphQLContext, AppEnv, AppMiddleware,
+  WinstonModule, createGraphQLContext, AppEnv, AppMiddleware, WinstonLogger, NESTKIT_WINSTON_LOGGER_PROVIDER,
 } from '@deeepvision/nest-kit';
 import { GcsModule } from '@deeepvision/nest-kit/dist/modules/gcs';
 import { IdModule } from '@deeepvision/nest-kit/dist/modules/id';
@@ -42,6 +42,7 @@ import { CompanionModule } from '@deeepvision/nest-kit/dist/modules/companion';
 import { CacheModule } from '@nestjs/cache-manager';
 import { PostgresPubSubModule } from '@deeepvision/nest-kit/dist/modules/postgres-pubsub';
 import { AppResolver } from './app.resolver';
+import { ApolloServerPluginUsageReporting, ClientInfo } from '@apollo/server/plugin/usageReporting';
 
 @Module({
   imports: [
@@ -98,9 +99,12 @@ import { AppResolver } from './app.resolver';
       useFactory: async (opts: ConfigType<typeof configs.WinstonConfig>) => opts,
     }),
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
-      inject: [configs.AppConfig.KEY],
+      inject: [configs.AppConfig.KEY, NESTKIT_WINSTON_LOGGER_PROVIDER],
       driver: ApolloDriver,
-      useFactory: (appConfig: ConfigType<typeof configs.AppConfig>) => {
+      useFactory: (
+        appConfig: ConfigType<typeof configs.AppConfig>,
+        logger: WinstonLogger,
+      ) => {
         const apolloServerPlugins = [];
         if (appConfig.env === AppEnv.LOCAL) {
           apolloServerPlugins.push(ApolloServerPluginLandingPageLocalDefault({
@@ -113,6 +117,33 @@ import { AppResolver } from './app.resolver';
           }));
         } else {
           apolloServerPlugins.push(ApolloServerPluginLandingPageProductionDefault());
+        }
+
+        if (appConfig.env === AppEnv.PRODUCTION && process.env.APOLLO_GRAPH_REF) {
+          apolloServerPlugins.push(ApolloServerPluginUsageReporting({
+            sendVariableValues: {
+              all: true,
+            },
+            sendHeaders: {
+              all: true,
+            },
+            sendErrors: {
+              unmodified: true,
+            },
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            generateClientInfo: ({ request }): ClientInfo => {
+              return {
+                clientName: `Default Client`,
+                clientVersion: 'v1.0',
+              };
+            },
+            fieldLevelInstrumentation: 0.5,
+            sendUnexecutableOperationDocuments: true,
+            sendReportsImmediately: true,
+            reportErrorFunction: (err) => {
+              logger.error(`Apollo usage reporting error: ${err.message}`);
+            },
+          }));
         }
 
         return {
