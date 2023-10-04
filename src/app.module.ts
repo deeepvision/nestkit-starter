@@ -1,5 +1,5 @@
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { ConfigModule, ConfigType } from '@nestjs/config';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { GraphQLModule } from '@nestjs/graphql';
@@ -7,7 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import {
-  WinstonModule, createGraphQLContext, AppEnv,
+  WinstonModule, createGraphQLContext, AppEnv, AppMiddleware,
 } from '@deeepvision/nest-kit';
 import { GcsModule } from '@deeepvision/nest-kit/dist/modules/gcs';
 import { IdModule } from '@deeepvision/nest-kit/dist/modules/id';
@@ -40,6 +40,8 @@ import { BooksModule } from './modules/books/books.module';
 import { BiblesModule } from '@deeepvision/nest-kit/dist/modules/bibles';
 import { CompanionModule } from '@deeepvision/nest-kit/dist/modules/companion';
 import { CacheModule } from '@nestjs/cache-manager';
+import { PostgresPubSubModule } from '@deeepvision/nest-kit/dist/modules/postgres-pubsub';
+import { AppResolver } from './app.resolver';
 
 @Module({
   imports: [
@@ -122,6 +124,11 @@ import { CacheModule } from '@nestjs/cache-manager';
           }),
           playground: false,
           plugins: apolloServerPlugins,
+          subscriptions: {
+            'graphql-ws': {
+              path: '/ws',
+            },
+          },
         };
       },
     }),
@@ -145,7 +152,16 @@ import { CacheModule } from '@nestjs/cache-manager';
     BooksModule,
     BiblesModule,
     CompanionModule,
+    PostgresPubSubModule,
   ],
-  providers: [],
+  providers: [
+    AppResolver,
+  ],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(AppMiddleware)
+      .forRoutes('*');
+  }
+}

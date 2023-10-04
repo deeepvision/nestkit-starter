@@ -11,6 +11,18 @@ import { User } from '../users/user.entity';
 @ObjectType()
 @ChildEntity()
 export class Organization extends BaseOrganization {
+  @Field(() => Image, {
+    nullable: true,
+    description: 'The organization logo',
+  })
+  logo!: Promise<MaybeNull<Image>>;
+
+  @Field(() => Image, {
+    nullable: true,
+    description: 'The organization welcome image',
+  })
+  welcomeImage!: Promise<MaybeNull<Image>>;
+
   @Field(() => User, {
     nullable: true,
   })
@@ -20,12 +32,6 @@ export class Organization extends BaseOrganization {
     nullable: true,
   })
   group!: Promise<OrganizationGroup>;
-
-  @Field(() => Image, {
-    nullable: true,
-    description: 'The organization logo',
-  })
-  logo!: Promise<MaybeNull<Image>>;
 
   userToRoles!: Promise<UserToRole[]>;
 

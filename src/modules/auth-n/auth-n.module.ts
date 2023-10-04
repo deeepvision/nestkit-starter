@@ -11,6 +11,9 @@ import { JwtService } from './jwt/jwt.service';
 import { OtpResolver } from './otp/otp.resolver';
 import { OtpService } from './otp/otp.service';
 import { RefreshToken } from './entities/refresh-token.entity';
+import {
+  AUTHN_SERVICE_TOKEN, JWT_SERVICE_TOKEN, OTP_SERVICE_TOKEN,
+} from '@deeepvision/nest-kit/dist/modules/auth-n';
 
 @Module({
   imports: [
@@ -25,6 +28,18 @@ import { RefreshToken } from './entities/refresh-token.entity';
     JwtService,
     OtpService,
     OtpResolver,
+    {
+      provide: OTP_SERVICE_TOKEN,
+      useExisting: OtpService,
+    },
+    {
+      provide: JWT_SERVICE_TOKEN,
+      useExisting: JwtService,
+    },
+    {
+      provide: AUTHN_SERVICE_TOKEN,
+      useExisting: AuthNService,
+    },
   ],
 })
 export class AuthNModule {}

@@ -7,6 +7,7 @@ import { UserToRole } from '../user-to-roles/user-to-role.entity';
 import { Organization } from './organization.entity';
 import { OrganizationsResolver } from './organizations.resolver';
 import { OrganizationsService } from './organizations.service';
+import { ORGANIZATIONS_SERVICE_TOKEN } from '@deeepvision/nest-kit/dist/modules/organizations';
 
 @Module({
   imports: [
@@ -16,10 +17,18 @@ import { OrganizationsService } from './organizations.service';
   ],
   providers: [
     OrganizationsService,
+    {
+      provide: ORGANIZATIONS_SERVICE_TOKEN,
+      useExisting: OrganizationsService,
+    },
     OrganizationsResolver,
   ],
   exports: [
     OrganizationsService,
+    {
+      provide: ORGANIZATIONS_SERVICE_TOKEN,
+      useExisting: OrganizationsService,
+    },
     TypeOrmModule,
   ],
 })

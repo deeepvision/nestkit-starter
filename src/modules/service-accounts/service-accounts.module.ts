@@ -9,6 +9,7 @@ import { ServiceAccountsService } from './service-accounts.service';
 import { ServiceToken } from './service-tokens/service-token.entity';
 import { ServiceTokensResolver } from './service-tokens/service-tokens.resolver';
 import { ServiceTokensService } from './service-tokens/service-tokens.service';
+import { SERVICE_ACCOUNTS_SERVICE_TOKEN, SERVICE_TOKENS_SERVICE_TOKEN } from '@deeepvision/nest-kit/dist/modules/service-accounts';
 
 @Module({
   imports: [
@@ -21,12 +22,24 @@ import { ServiceTokensService } from './service-tokens/service-tokens.service';
   ],
   providers: [
     ServiceAccountsService,
+    {
+      provide: SERVICE_ACCOUNTS_SERVICE_TOKEN,
+      useExisting: ServiceAccountsService,
+    },
     ServiceAccountsResolver,
     ServiceTokensService,
+    {
+      provide: SERVICE_TOKENS_SERVICE_TOKEN,
+      useExisting: ServiceTokensService,
+    },
     ServiceTokensResolver,
   ],
   exports: [
     ServiceAccountsService,
+    {
+      provide: SERVICE_ACCOUNTS_SERVICE_TOKEN,
+      useExisting: ServiceAccountsService,
+    },
   ],
 })
 export class ServiceAccountsModule {}

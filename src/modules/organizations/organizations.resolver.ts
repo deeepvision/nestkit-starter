@@ -1,20 +1,63 @@
 // src/modules/organizations/organizations.resolver.ts
 
-import { BaseOrganizationsResolver } from '@deeepvision/nest-kit/dist/modules/organizations';
-import { Resolver } from '@nestjs/graphql';
-import { TimezonesService } from '../timezones/timezones.service';
+import {
+  BaseOrganizationsResolver, FetchOrganizationsOptions, OrganizationsOrderBy,
+} from '@deeepvision/nest-kit/dist/modules/organizations';
+import {
+  Args, Query, Resolver,
+} from '@nestjs/graphql';
 import { Organization } from './organization.entity';
+import { FetchCurrentOrganizationInput } from './types/resolver';
+import { ActionContext, MaybeNull } from '@deeepvision/nest-kit';
+import { IActionContext } from '@/decorators';
 import { OrganizationsService } from './organizations.service';
 
 @Resolver(() => Organization)
 export class OrganizationsResolver extends BaseOrganizationsResolver(Organization) {
   constructor(
-    protected readonly organizationsService: OrganizationsService,
-    protected readonly timezonesService: TimezonesService,
+    readonly organizationsService: OrganizationsService,
   ) {
-    super(
-      organizationsService,
-      timezonesService,
-    );
+    super();
+  }
+
+  @Query(() => Organization, {
+    nullable: true,
+  })
+  async currentOrganization(
+    @ActionContext() ctx: IActionContext,
+    @Args('input') input: FetchCurrentOrganizationInput,
+  ): Promise<MaybeNull<Organization>> {
+    const opts: FetchOrganizationsOptions = {
+      filter: {
+      },
+      orderBy: OrganizationsOrderBy.createdAt_DESC,
+      limit: 1,
+      needCountTotal: false,
+    };
+
+    if (input.id) {
+      opts.filter.ids = [input.id];
+    }
+
+    if (!ctx.isGranted('nst:core:organizations:list')) {
+      opts.filter.isMemberOf = true;
+    }
+
+    const [[org]] = await this.organizationsService.getMany(opts, ctx);
+
+    if (org) {
+      return org;
+    }
+
+    // if target org is not available for user, try to return first available
+    if (input.id) {
+      delete opts.filter.ids;
+
+      const [[firstAvailableOrg]] = await this.organizationsService.getMany(opts, ctx);
+
+      return firstAvailableOrg ?? null;
+    }
+
+    return null;
   }
 }
