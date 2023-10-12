@@ -140,8 +140,8 @@ import { ApolloServerPluginUsageReporting, ClientInfo } from '@apollo/server/plu
             fieldLevelInstrumentation: 0.5,
             sendUnexecutableOperationDocuments: true,
             sendReportsImmediately: true,
-            reportErrorFunction: (err) => {
-              logger.error(`Apollo usage reporting error: ${err.message}`);
+            reportErrorFunction: (error) => {
+              logger.error(`Apollo usage reporting error`, error);
             },
           }));
         }
