@@ -40,7 +40,6 @@ export class AppResolver {
     return true;
   }
 
-  @UseGuards(GraphQLJwtAuthGuard, GraphQLPermissionsGuard)
   @UsePermission('nst:core:organizations:get')
   @Subscription(() => String)
   helloSaid() {
