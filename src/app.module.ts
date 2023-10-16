@@ -151,7 +151,7 @@ import { ApolloServerPluginUsageReporting, ClientInfo } from '@apollo/server/plu
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           context: (ctx: any) => createGraphQLContext({
             app: appConfig.shortname,
-            connectionParams: ctx.connectionParams,
+            connectionParams: ctx.connectionParams?.connectionParams ?? ctx.connectionParams,
           }),
           playground: false,
           plugins: apolloServerPlugins,
