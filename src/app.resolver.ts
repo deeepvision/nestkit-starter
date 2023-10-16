@@ -40,7 +40,7 @@ export class AppResolver {
     return true;
   }
 
-  @UsePermission('nst:core:organizations:get')
+  @UsePermission('nst:core:app:say-hello')
   @Subscription(() => String)
   helloSaid() {
     return this.pubsub.asyncIterator('HELLO_SAID');
