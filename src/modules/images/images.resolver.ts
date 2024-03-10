@@ -1,8 +1,9 @@
-import { Resolver } from '@nestjs/graphql';
 import { BaseImagesResolver } from '@deeepvision/nest-kit/dist/modules/images';
+import { Resolver } from '@nestjs/graphql';
+
 import { Image } from './image.entity';
-import { ImagesService } from './images.service';
 import { ImageRenditionsService } from './image-renditions/image-renditions.service';
+import { ImagesService } from './images.service';
 
 @Resolver(() => Image)
 export class ImagesResolver extends BaseImagesResolver(Image) {

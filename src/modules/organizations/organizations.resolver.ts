@@ -1,16 +1,18 @@
 // src/modules/organizations/organizations.resolver.ts
 
+import { ActionContext, MaybeNull } from '@deeepvision/nest-kit';
 import {
   BaseOrganizationsResolver, FetchOrganizationsOptions, OrganizationsOrderBy,
 } from '@deeepvision/nest-kit/dist/modules/organizations';
 import {
   Args, Query, Resolver,
 } from '@nestjs/graphql';
-import { Organization } from './organization.entity';
-import { FetchCurrentOrganizationInput } from './types/resolver';
-import { ActionContext, MaybeNull } from '@deeepvision/nest-kit';
+
 import { IActionContext } from '@/decorators';
+
+import { Organization } from './organization.entity';
 import { OrganizationsService } from './organizations.service';
+import { FetchCurrentOrganizationInput } from './types/resolver';
 
 @Resolver(() => Organization)
 export class OrganizationsResolver extends BaseOrganizationsResolver(Organization) {

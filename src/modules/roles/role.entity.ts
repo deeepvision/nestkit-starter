@@ -1,7 +1,6 @@
-
-import { Field, ObjectType } from '@nestjs/graphql';
 import { MaybeNull } from '@deeepvision/nest-kit';
 import { BaseRole } from '@deeepvision/nest-kit/dist/modules/roles/role.entity';
+import { Field, ObjectType } from '@nestjs/graphql';
 import { ChildEntity } from 'typeorm';
 
 import { Organization } from '../organizations/organization.entity';

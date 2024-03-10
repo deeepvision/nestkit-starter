@@ -1,10 +1,11 @@
-import { Book } from '../../book.entity';
 import {
   ExtractSortFields, OffsetPaginated, OffsetPaginationInput,
 } from '@deeepvision/nest-kit';
 import {
   ArgsType, Field, InputType, ObjectType, registerEnumType,
 } from '@nestjs/graphql';
+
+import { Book } from '../../book.entity';
 
 @InputType()
 export class BooksFilter {

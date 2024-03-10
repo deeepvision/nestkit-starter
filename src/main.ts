@@ -1,14 +1,14 @@
-import { HttpAdapterHost, NestFactory } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
-import bodyParser from 'body-parser';
-
-import { AppModule } from '@/app.module';
 import {
-  NESTKIT_WINSTON_LOGGER_FACTORY_PROVIDER, AppEnv, HttpExceptionFilter, NESTKIT_WINSTON_SYSTEM_LOGGER_PROVIDER,
+  AppEnv, HttpExceptionFilter, NESTKIT_WINSTON_LOGGER_FACTORY_PROVIDER, NESTKIT_WINSTON_SYSTEM_LOGGER_PROVIDER,
 } from '@deeepvision/nest-kit';
+import { ValidationPipe } from '@nestjs/common';
+import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import bodyParser from 'body-parser';
 import hbs from 'hbs';
 import { resolve } from 'path';
+
+import { AppModule } from '@/app.module';
 
 hbs.registerPartials(resolve(__dirname, '../src/resources/emails/partials/'));
 

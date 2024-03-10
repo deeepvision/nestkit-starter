@@ -1,5 +1,6 @@
-import { Country, BaseCountriesResolver } from '@deeepvision/nest-kit/dist/modules/countries';
+import { BaseCountriesResolver, Country } from '@deeepvision/nest-kit/dist/modules/countries';
 import { Resolver } from '@nestjs/graphql';
+
 import { CountriesService } from './countries.service';
 
 @Resolver(() => Country)

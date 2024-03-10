@@ -1,7 +1,8 @@
+import { COUNTRIES_SERVICE_TOKEN } from '@deeepvision/nest-kit/dist/modules/countries';
 import { Module } from '@nestjs/common';
+
 import { CountriesResolver } from './countries.resolver';
 import { CountriesService } from './countries.service';
-import { COUNTRIES_SERVICE_TOKEN } from '@deeepvision/nest-kit/dist/modules/countries';
 
 @Module({
   providers: [

@@ -2,6 +2,7 @@
 
 import { BaseUserToRolesResolver } from '@deeepvision/nest-kit/dist/modules/user-to-roles';
 import { Resolver } from '@nestjs/graphql';
+
 import { UserToRole } from './user-to-role.entity';
 import { UserToRolesService } from './user-to-roles.service';
 

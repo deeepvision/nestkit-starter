@@ -1,10 +1,10 @@
+import { BINARY_FILES_SERVICE_TOKEN } from '@deeepvision/nest-kit/dist/modules/binary-files';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { BinaryFilesService } from './binary-files.service';
-import { BinaryFilesResolver } from './binary-files.resolver';
 import { BinaryFile } from './binary-file.entity';
-import { BINARY_FILES_SERVICE_TOKEN } from '@deeepvision/nest-kit/dist/modules/binary-files';
+import { BinaryFilesResolver } from './binary-files.resolver';
+import { BinaryFilesService } from './binary-files.service';
 
 @Module({
   imports: [

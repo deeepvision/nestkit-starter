@@ -1,7 +1,8 @@
-
-import { User } from '@/modules/users/user.entity';
 import { BaseJwtService } from '@deeepvision/nest-kit/dist/modules/auth-n';
 import { Injectable } from '@nestjs/common';
+
+import { User } from '@/modules/users/user.entity';
+
 import { RefreshToken } from '../entities/refresh-token.entity';
 
 @Injectable()

@@ -1,10 +1,11 @@
+import { ROLES_SERVICE_TOKEN } from '@deeepvision/nest-kit/dist/modules/roles';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Role } from './role.entity';
-import { RolesService } from './roles.service';
-import { RolesResolver } from './roles.resolver';
+
 import { OrganizationsModule } from '../organizations/organizations.module';
-import { ROLES_SERVICE_TOKEN } from '@deeepvision/nest-kit/dist/modules/roles';
+import { Role } from './role.entity';
+import { RolesResolver } from './roles.resolver';
+import { RolesService } from './roles.service';
 
 @Module({
   imports: [

@@ -1,16 +1,20 @@
-import { IActionContext } from '@/decorators';
 import {
-  RestActionContext, JwtAuthGuard, WinstonLoggerFactory, InjectWinstonLoggerFactory, WinstonLogger,
+  InjectWinstonLoggerFactory, JwtAuthGuard, RestActionContext, WinstonLogger,
+  WinstonLoggerFactory,
 } from '@deeepvision/nest-kit';
+import { UserTokens } from '@deeepvision/nest-kit/dist/modules/auth-n';
+import { UserInvitationStatus } from '@deeepvision/nest-kit/dist/modules/users';
 import {
-  Controller, Post, BadRequestException, Body, UseGuards, Param, Get, Res,
+  BadRequestException, Body, Controller, Get, Param, Post, Res,
+  UseGuards,
 } from '@nestjs/common';
+import { Response } from 'express';
+
+import { IActionContext } from '@/decorators';
+
 import { UsersService } from '../users/users.service';
 import { AuthNService } from './auth-n.service';
-import { Response } from 'express';
-import { UserInvitationStatus } from '@deeepvision/nest-kit/dist/modules/users';
 import { JwtService } from './jwt/jwt.service';
-import { UserTokens } from '@deeepvision/nest-kit/dist/modules/auth-n';
 
 @Controller('auth')
 @UseGuards(JwtAuthGuard)
