@@ -1,4 +1,22 @@
+import { resolve } from 'node:path';
+
+// eslint-disable-next-line node/no-extraneous-import
+import {
+  ApolloServerPluginLandingPageLocalDefault,
+  ApolloServerPluginLandingPageProductionDefault,
+} from '@apollo/server/plugin/landingPage/default';
+import { ApolloServerPluginUsageReporting, ClientInfo } from '@apollo/server/plugin/usageReporting';
+import {
+  AppEnv, AppMiddleware, createGraphQLContext, NESTKIT_WINSTON_LOGGER_PROVIDER,
+  WinstonLogger, WinstonModule,
+} from '@deeepvision/nest-kit';
+import { BiblesModule } from '@deeepvision/nest-kit/dist/modules/bibles';
+import { CompanionModule } from '@deeepvision/nest-kit/dist/modules/companion';
+import { GcsModule } from '@deeepvision/nest-kit/dist/modules/gcs';
+import { IdModule } from '@deeepvision/nest-kit/dist/modules/id';
+import { PostgresPubSubModule } from '@deeepvision/nest-kit/dist/modules/postgres-pubsub';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { CacheModule } from '@nestjs/cache-manager';
 import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { ConfigModule, ConfigType } from '@nestjs/config';
 import { EventEmitterModule } from '@nestjs/event-emitter';
@@ -7,42 +25,27 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import {
-  WinstonModule, createGraphQLContext, AppEnv, AppMiddleware, WinstonLogger, NESTKIT_WINSTON_LOGGER_PROVIDER,
-} from '@deeepvision/nest-kit';
-import { GcsModule } from '@deeepvision/nest-kit/dist/modules/gcs';
-import { IdModule } from '@deeepvision/nest-kit/dist/modules/id';
-import {
-  I18nModule, I18nJsonLoader, HeaderResolver, I18nService,
+  HeaderResolver, I18nJsonLoader, I18nModule, I18nService,
 } from 'nestjs-i18n';
-import { resolve } from 'node:path';
-// eslint-disable-next-line node/no-extraneous-import
-import {
-  ApolloServerPluginLandingPageLocalDefault,
-  ApolloServerPluginLandingPageProductionDefault,
-} from '@apollo/server/plugin/landingPage/default';
 
 import * as configs from '@/config';
-import { ImagesModule } from './modules/images/images.module';
-import { EmailsModule } from './modules/emails/emails.module';
-import { TimezonesModule } from './modules/timezones/timezones.module';
-import { OrganizationGroupsModule } from './modules/organization-groups/organization-groups.module';
-import { OrganizationsModule } from './modules/organizations/organizations.module';
-import { UsersModule } from './modules/users/users.module';
-import { UserToRolesModule } from './modules/user-to-roles/user-to-roles.module';
-import { RolesModule } from './modules/roles/roles.module';
-import { UserManagerModule } from './modules/user-manager/user-manager.module';
+
+import { AppResolver } from './app.resolver';
 import { AuthNModule } from './modules/auth-n/auth-n.module';
 import { BinaryFilesModule } from './modules/binary-files/binary-files.module';
-import { LanguagesModule } from './modules/languages/languages.module';
-import { CountriesModule } from './modules/countries/countries.module';
-import { ServiceAccountsModule } from './modules/service-accounts/service-accounts.module';
 import { BooksModule } from './modules/books/books.module';
-import { BiblesModule } from '@deeepvision/nest-kit/dist/modules/bibles';
-import { CompanionModule } from '@deeepvision/nest-kit/dist/modules/companion';
-import { CacheModule } from '@nestjs/cache-manager';
-import { PostgresPubSubModule } from '@deeepvision/nest-kit/dist/modules/postgres-pubsub';
-import { AppResolver } from './app.resolver';
-import { ApolloServerPluginUsageReporting, ClientInfo } from '@apollo/server/plugin/usageReporting';
+import { CountriesModule } from './modules/countries/countries.module';
+import { EmailsModule } from './modules/emails/emails.module';
+import { ImagesModule } from './modules/images/images.module';
+import { LanguagesModule } from './modules/languages/languages.module';
+import { OrganizationGroupsModule } from './modules/organization-groups/organization-groups.module';
+import { OrganizationsModule } from './modules/organizations/organizations.module';
+import { RolesModule } from './modules/roles/roles.module';
+import { ServiceAccountsModule } from './modules/service-accounts/service-accounts.module';
+import { TimezonesModule } from './modules/timezones/timezones.module';
+import { UserManagerModule } from './modules/user-manager/user-manager.module';
+import { UserToRolesModule } from './modules/user-to-roles/user-to-roles.module';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [

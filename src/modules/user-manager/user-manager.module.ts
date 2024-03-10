@@ -1,7 +1,7 @@
-
 import { USER_MANAGER } from '@deeepvision/nest-kit';
 import { Global, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { ServiceToken } from '../service-accounts/service-tokens/service-token.entity';
 import { UserToRole } from '../user-to-roles/user-to-role.entity';
 import { User } from '../users/user.entity';

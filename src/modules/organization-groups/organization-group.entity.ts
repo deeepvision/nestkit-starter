@@ -2,6 +2,7 @@ import { MaybeNull } from '@deeepvision/nest-kit';
 import { BaseOrganizationGroup } from '@deeepvision/nest-kit/dist/modules/organization-groups';
 import { Field, ObjectType } from '@nestjs/graphql';
 import { ChildEntity } from 'typeorm';
+
 import { Image } from '../images/image.entity';
 import { Organization } from '../organizations/organization.entity';
 import { User } from '../users/user.entity';

@@ -1,7 +1,7 @@
-import {
-  BaseEntity, Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn,
-} from 'typeorm';
 import { Field, ObjectType } from '@nestjs/graphql';
+import {
+  BaseEntity, Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn,
+} from 'typeorm';
 
 @ObjectType()
 @Entity()

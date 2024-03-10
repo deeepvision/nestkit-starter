@@ -1,8 +1,9 @@
-import { AppConfig } from '@/config';
 import {
   Controller, Get, Inject, Render,
 } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
+
+import { AppConfig } from '@/config';
 
 @Controller('emails')
 export class EmailsController {

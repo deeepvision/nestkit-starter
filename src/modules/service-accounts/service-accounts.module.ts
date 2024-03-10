@@ -1,3 +1,4 @@
+import { SERVICE_ACCOUNTS_SERVICE_TOKEN, SERVICE_TOKENS_SERVICE_TOKEN } from '@deeepvision/nest-kit/dist/modules/service-accounts';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -9,7 +10,6 @@ import { ServiceAccountsService } from './service-accounts.service';
 import { ServiceToken } from './service-tokens/service-token.entity';
 import { ServiceTokensResolver } from './service-tokens/service-tokens.resolver';
 import { ServiceTokensService } from './service-tokens/service-tokens.service';
-import { SERVICE_ACCOUNTS_SERVICE_TOKEN, SERVICE_TOKENS_SERVICE_TOKEN } from '@deeepvision/nest-kit/dist/modules/service-accounts';
 
 @Module({
   imports: [

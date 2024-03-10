@@ -1,15 +1,16 @@
-import { Module } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersResolver } from './users.resolver';
-import { OrganizationsModule } from '../organizations/organizations.module';
-import { User } from './user.entity';
-import { TimezonesModule } from '../timezones/timezones.module';
-import { UserToRole } from '../user-to-roles/user-to-role.entity';
 import {
   InvitationStatusChange, InvitationStatusChangesService, USERS_SERVICE_TOKEN,
 } from '@deeepvision/nest-kit/dist/modules/users';
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { OrganizationsModule } from '../organizations/organizations.module';
+import { TimezonesModule } from '../timezones/timezones.module';
+import { UserToRole } from '../user-to-roles/user-to-role.entity';
 import { UserToRolesModule } from '../user-to-roles/user-to-roles.module';
+import { User } from './user.entity';
+import { UsersResolver } from './users.resolver';
+import { UsersService } from './users.service';
 
 @Module({
   imports: [

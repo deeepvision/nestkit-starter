@@ -1,17 +1,20 @@
 import {
-  Args, Info, Mutation, Query, Resolver,
-} from '@nestjs/graphql';
+  ActionContext, createOffsetPaginationOptions, GraphQLJwtAuthGuard, GraphQLPermissionsGuard, offsetPaginatedOutput,
+} from '@deeepvision/nest-kit';
 import { UseGuards } from '@nestjs/common';
 import {
-  ActionContext, GraphQLJwtAuthGuard, GraphQLPermissionsGuard, createOffsetPaginationOptions, offsetPaginatedOutput,
-} from '@deeepvision/nest-kit';
-import { IActionContext, UsePermission } from '@/decorators';
-import {
-  CreateBookInput, UpdateBookInput, DeleteBookInput, FetchBooksInput, DeleteBookPayload, PaginatedBooks,
-} from './types/resolver';
-import { BooksService } from './books.service';
-import { Book } from './book.entity';
+  Args, Info, Mutation, Query, Resolver,
+} from '@nestjs/graphql';
 import { GraphQLResolveInfo } from 'graphql';
+
+import { IActionContext, UsePermission } from '@/decorators';
+
+import { Book } from './book.entity';
+import { BooksService } from './books.service';
+import {
+  CreateBookInput, DeleteBookInput, DeleteBookPayload, FetchBooksInput, PaginatedBooks,
+  UpdateBookInput,
+} from './types/resolver';
 
 @Resolver(() => Book)
 @UseGuards(GraphQLJwtAuthGuard, GraphQLPermissionsGuard)
@@ -43,7 +46,7 @@ export class BooksResolver {
       },
     );
 
-    return await offsetPaginatedOutput(books, meta);
+    return offsetPaginatedOutput(books, meta);
   }
 
   @Mutation(() => Book)

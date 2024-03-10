@@ -1,8 +1,8 @@
-import { AppEnv } from '@deeepvision/nest-kit';
 import { useDotEnv } from '@deeepvision/dotenv-yaml';
-
+import { AppEnv } from '@deeepvision/nest-kit';
 import {
   createAppConfig,
+  createAuthConfig,
   createDbConfig,
   createGcpConfig,
   createJwtConfig,
@@ -53,3 +53,7 @@ export const WinstonConfig = createWinstonConfig({
 });
 
 export const GcpConfig = createGcpConfig();
+
+export const AuthConfig = createAuthConfig({
+  waitingForApprovalAfterRegistration: true,
+});

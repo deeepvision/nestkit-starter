@@ -1,20 +1,22 @@
 import {
-  Injectable, InternalServerErrorException, NotFoundException,
-} from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { ErrorKeys } from '@/enums/error-keys';
-import { IdPrefix } from '@/enums/id-prefix';
-import { ServiceMethodContext } from '@/types/services';
-import {
   createListMeta, extractSortParams, InjectWinstonLoggerFactory, ListMeta, MaybeNull, WinstonLoggerFactory,
 } from '@deeepvision/nest-kit';
 import { IdService } from '@deeepvision/nest-kit/dist/modules/id';
 import {
+  Injectable, InternalServerErrorException, NotFoundException,
+} from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
+import { ErrorKeys } from '@/enums/error-keys';
+import { IdPrefix } from '@/enums/id-prefix';
+import { ServiceMethodContext } from '@/types/services';
+
+import { Book } from './book.entity';
+import { BooksOrderBy, BooksOrderFields } from './types/resolver';
+import {
   CreateBookOptions, GetManyBooksOptions, UpdateBookOptions,
 } from './types/service';
-import { BooksOrderBy, BooksOrderFields } from './types/resolver';
-import { Book } from './book.entity';
 
 @Injectable()
 export class BooksService {

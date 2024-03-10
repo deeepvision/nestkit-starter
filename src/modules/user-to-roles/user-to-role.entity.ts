@@ -1,10 +1,11 @@
-import { ChildEntity } from 'typeorm';
-import { Field, ObjectType } from '@nestjs/graphql';
-import { User } from '@/modules/users/user.entity';
+import { MaybeNull } from '@deeepvision/nest-kit';
 import { BaseUserToRole } from '@deeepvision/nest-kit/dist/modules/user-to-roles';
+import { Field, ObjectType } from '@nestjs/graphql';
+import { ChildEntity } from 'typeorm';
+
 import { Organization } from '@/modules/organizations/organization.entity';
 import { Role } from '@/modules/roles/role.entity';
-import { MaybeNull } from '@deeepvision/nest-kit';
+import { User } from '@/modules/users/user.entity';
 
 @ObjectType()
 @ChildEntity()
