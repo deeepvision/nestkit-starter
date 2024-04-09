@@ -11,11 +11,8 @@ const path = require('node:path');
 
 module.exports = {
   root: true,
-  extends: ['plugin:@deepvision/recommended-node'],
+  extends: ['plugin:@deep/recommended-node'],
   ignorePatterns: ['src/i18n/types.ts'],
-  parserOptions: {
-    project: path.join(__dirname, './tsconfig.json'),
-  },
   rules: {
     'node/no-extraneous-import': 'off',
   },
