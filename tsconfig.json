@@ -22,12 +22,10 @@
     "declaration": true,
     "sourceMap": true,
 
-    // "skipLibCheck": true,
+    "skipLibCheck": true,
 
     // Files will be emitted into this directory
     "outDir": "dist",
-
-    // "skipLibCheck": true,
 
     // Set path alias for src directory
     // see also resolve aliases section in vue.config.js

@@ -1,13 +1,13 @@
 import { resolve } from 'node:path';
 
+import { ApolloServerPluginUsageReportingDisabled } from '@apollo/server/plugin/disabled';
 // eslint-disable-next-line node/no-extraneous-import
 import {
   ApolloServerPluginLandingPageLocalDefault,
   ApolloServerPluginLandingPageProductionDefault,
 } from '@apollo/server/plugin/landingPage/default';
-import { ApolloServerPluginUsageReporting, ClientInfo } from '@apollo/server/plugin/usageReporting';
 import {
-  AppEnv, AppMiddleware, createGraphQLContext, NESTKIT_WINSTON_LOGGER_PROVIDER,
+  AppEnv, AppMiddleware, createGraphQLContext, createGraphQLErrorFormatter, NESTKIT_WINSTON_LOGGER_PROVIDER,
   WinstonLogger, WinstonModule,
 } from '@deeepvision/nest-kit';
 import { BiblesModule } from '@deeepvision/nest-kit/dist/modules/bibles';
@@ -102,52 +102,21 @@ import { UsersModule } from './modules/users/users.module';
       useFactory: async (opts: ConfigType<typeof configs.WinstonConfig>) => opts,
     }),
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
-      inject: [configs.AppConfig.KEY, NESTKIT_WINSTON_LOGGER_PROVIDER],
+      inject: [configs.AppConfig.KEY],
       driver: ApolloDriver,
       useFactory: (
         appConfig: ConfigType<typeof configs.AppConfig>,
-        logger: WinstonLogger,
       ) => {
         const apolloServerPlugins = [];
         if (appConfig.env === AppEnv.LOCAL) {
           apolloServerPlugins.push(ApolloServerPluginLandingPageLocalDefault({
             embed: true,
           }));
-        } else if (appConfig.env !== AppEnv.PRODUCTION && process.env.APOLLO_GRAPH_REF) {
-          apolloServerPlugins.push(ApolloServerPluginLandingPageProductionDefault({
-            graphRef: process.env.APOLLO_GRAPH_REF,
-            embed: true,
-          }));
         } else {
           apolloServerPlugins.push(ApolloServerPluginLandingPageProductionDefault());
         }
 
-        if (appConfig.env === AppEnv.PRODUCTION && process.env.APOLLO_GRAPH_REF) {
-          apolloServerPlugins.push(ApolloServerPluginUsageReporting({
-            sendVariableValues: {
-              all: true,
-            },
-            sendHeaders: {
-              all: true,
-            },
-            sendErrors: {
-              unmodified: true,
-            },
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            generateClientInfo: ({ request }): ClientInfo => {
-              return {
-                clientName: `Default Client`,
-                clientVersion: 'v1.0',
-              };
-            },
-            fieldLevelInstrumentation: 0.5,
-            sendUnexecutableOperationDocuments: true,
-            sendReportsImmediately: true,
-            reportErrorFunction: (error) => {
-              logger.error(`Apollo usage reporting error`, error);
-            },
-          }));
-        }
+        apolloServerPlugins.push(ApolloServerPluginUsageReportingDisabled());
 
         return {
           autoSchemaFile: true,
@@ -156,11 +125,12 @@ import { UsersModule } from './modules/users/users.module';
             app: appConfig.shortname,
             connectionParams: ctx.connectionParams?.connectionParams ?? ctx.connectionParams,
           }),
+          formatError: createGraphQLErrorFormatter(appConfig),
           playground: false,
           plugins: apolloServerPlugins,
           subscriptions: {
             'graphql-ws': {
-              path: '/ws',
+              path: appConfig.env === AppEnv.LOCAL ? '/graphql' : '/ws',
             },
           },
         };

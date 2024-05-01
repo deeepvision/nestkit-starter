@@ -35,6 +35,7 @@ export const DbConfig = createDbConfig({
     'node_modules/@deeepvision/nest-kit/dist/modules/images/**/*.entity.js',
     'node_modules/@deeepvision/nest-kit/dist/modules/roles/**/*.entity.js',
     'node_modules/@deeepvision/nest-kit/dist/modules/users/**/*.entity.js',
+    'node_modules/@deeepvision/nest-kit/dist/modules/jobs/**/*.entity.js',
     'node_modules/@deeepvision/nest-kit/dist/modules/binary-files/**/*.entity.js',
     'node_modules/@deeepvision/nest-kit/dist/modules/bibles/**/*.entity.js',
     'node_modules/@deeepvision/nest-kit/dist/modules/service-accounts/**/*.entity.js',

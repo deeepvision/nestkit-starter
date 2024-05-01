@@ -1,8 +1,9 @@
 import {
-  AppEnv, HttpExceptionFilter, NESTKIT_WINSTON_LOGGER_FACTORY_PROVIDER, NESTKIT_WINSTON_SYSTEM_LOGGER_PROVIDER,
+  AppEnv, HttpExceptionFilter, NESTKIT_WINSTON_LOGGER_FACTORY_PROVIDER, NESTKIT_WINSTON_SYSTEM_LOGGER_PROVIDER, publishSchemaToApolloStudio,
 } from '@deeepvision/nest-kit';
 import { ValidationPipe } from '@nestjs/common';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
+import { GraphQLSchemaHost } from '@nestjs/graphql';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import bodyParser from 'body-parser';
 import hbs from 'hbs';
@@ -54,6 +55,12 @@ const bootstrap = async () => {
     logger.info(
       `Playground started on http://localhost:${process.env.PORT}/graphql`,
     );
+  }
+
+  if (process.env.APP_ENV !== AppEnv.LOCAL && process.env.APP_ENV !== AppEnv.TEST) {
+    const { schema } = app.get(GraphQLSchemaHost);
+
+    await publishSchemaToApolloStudio(schema, logger);
   }
 };
 
