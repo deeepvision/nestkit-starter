@@ -1,12 +1,73 @@
-# compiled output
-/dist
-/node_modules
+#
+# @pkg 📦 DeepVision Gitignore
+# @version 📍 1.0.0
+# @author 🐳 DeepVision Team <code@deepvision.team>
+#
 
-# Dev
-/dev/volumes
+# ============================================
+# Dependencies
+# ============================================
+node_modules/
 
-# env files
+# ============================================
+# Build & Generated Files
+# ============================================
+dist/
+dist-migrations/
+build/
+src/schema.gql
+src/openapi-schema.json
+
+# ============================================
+# Environment & Configuration
+# ============================================
 .env
 .env.yml
+.env*.local
+.env*.yml
+.env.stage.yml
+.env.test.yml
 
-.idea
+# ============================================
+# Logs
+# ============================================
+logs/
+*.log
+npm-debug.log*
+migration.log
+
+# ============================================
+# Testing & Coverage
+# ============================================
+/.nyc_output
+coverage/
+dev/coverage
+.coverage
+
+# ============================================
+# IDE & Editors
+# ============================================
+# JetBrains (WebStorm, IntelliJ IDEA)
+.idea/
+
+# Visual Studio Code
+.vscode/
+
+# ============================================
+# Operating System Files
+# ============================================
+# macOS
+.DS_Store
+
+# ============================================
+# Docker
+# ============================================
+dev/volumes/
+docker-compose.override.yml
+.dockerignore.local
+
+# ============================================
+# TypeScript
+# ============================================
+*.tsbuildinfo
+tsc-diagnostics.txt
