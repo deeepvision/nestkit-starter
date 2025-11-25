@@ -1,12 +1,36 @@
-# compiled output
-/dist
-/node_modules
+#
+# @pkg 📦 DeepVision Gitignore
+# @version 📍 1.0.0
+# @author 🐳 DeepVision Team <code@deepvision.team>
+#
 
-# Dev
-/dev/volumes
+# NPM packages
+node_modules/
+# Build files
+dist/
+# Local Docker volumes
+dev/volumes/
 
-# env files
+# Local env files
 .env
 .env.yml
+.env.stage.yml
+.env.test.yml
+.DS_Store
+
+src/schema.gql
+src/openapi-schema.json
+migration.log
 
 .idea
+
+# Tests
+/.nyc_output
+dev/coverage
+
+# TypeScript
+.tsbuildinfo
+tsc-diagnostics.txt
+
+# TypeORM
+dist-migrations
